@@ -28,13 +28,14 @@ var ColorsWeights = {}
 
 var LeftScale = {}
 var RightScale = {}
-@onready var polygon_2d: Polygon2D = $Polygon2D
+
+@onready var pointer: Polygon2D = $Pointer
 
 var current_side = "Left"
 var rng = RandomNumberGenerator.new()
 var Weights = [1, 2, 3, 4, 5, 6, 7, 8]
 var result: int
-var location = Vector2(100, 600)
+var location = Vector2(250, 600)
 const BLOCKS = preload("res://Blocks.tscn")
 const BUTTON = preload("res://Button.tscn")
 var left_location = Vector2(200, 300)
@@ -51,19 +52,24 @@ func _ready() -> void:
 
 func set_up() -> void:
 	for block in Colors:
+		#makes a block for each color
 		var instance = BLOCKS.instantiate()
 		instance.BlockName = block
 		instance.BlockColor = Colors[block]
 		
+		#assigns each block a random weight, without using a weight corresponding to a previous block
 		result = rng.randi_range(0, Weights.size()-1)
 		instance.BlockWeight = Weights[result]
 		ColorsWeights[block] = Weights[result]
+		#adds color-weight combo to answer key
 		answer.text += block + " " + str(Weights[result]) + "
 		"
 		Weights.erase(Weights[result])
 		
+		instance.position = Vector2(-300, -100)
 		add_child(instance)
 		
+		#makes a button corresponding to each color
 		var instance2 = BUTTON.instantiate()
 		instance2.ColorName = block
 		instance2.position = location
@@ -71,6 +77,8 @@ func set_up() -> void:
 		location += Vector2(100, 0)
 		add_child(instance2)
 		
+
+#creates a label for which weigh corresponds to what color (originally made for 2 player mode)
 func set_labels() -> void:
 	for colour in ColorsWeights:
 		match ColorsWeights[colour]:
@@ -90,7 +98,8 @@ func set_labels() -> void:
 				_7.text = colour + " 7"
 			8:
 				_8.text = colour + " 8"
-	
+
+#encrypts the answer so it can be checked against without actually revealing it (originally made for 2 player mode)
 func set_answers() -> void:
 	for colour in ColorsWeights:
 		match colour:
@@ -120,7 +129,8 @@ func set_answers() -> void:
 	
 	
 	" + str(encrypt_result))
-	
+
+#puts the colored block on the selected side when the corresponding button is pressed
 func _select_color(color_name) -> void:
 	if current_side == "Left":
 		if LeftScale.has(color_name):
@@ -136,6 +146,7 @@ func _select_color(color_name) -> void:
 		SignalBus.move_block.emit(color_name, right_location)
 		right_location -= Vector2(0, 50)
 
+#weighs both sides against each other, then displays the result
 func _on_button_pressed() -> void:
 	left_weight = 0
 	right_weight = 0
@@ -157,15 +168,16 @@ func _on_button_pressed() -> void:
 	else:
 		equal.show()
 
+#changes the selected side
 func _on_button_2_pressed() -> void:
 	if current_side == "Left":
 		current_side = "Right"
-		polygon_2d.position = Vector2(800, 350)
+		pointer.position = Vector2(800, 350)
 	else:
 		current_side = "Left"
-		polygon_2d.position = Vector2(300, 350)
+		pointer.position = Vector2(300, 350)
 
-
+#resets the weighing process
 func _on_button_3_pressed() -> void:
 	equal.hide()
 	left_location = Vector2(200, 300)
@@ -173,4 +185,8 @@ func _on_button_3_pressed() -> void:
 	LeftScale = {}
 	RightScale = {}
 	for block in Colors:
-		SignalBus.move_block.emit(block, Vector2(-200, 0))
+		SignalBus.move_block.emit(block, Vector2(-300, -100))
+
+#shows the answer
+func _on_show_answer_pressed() -> void:
+	answer.show()

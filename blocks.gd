@@ -16,14 +16,17 @@ func _ready() -> void:
 	SignalBus.heavier.connect(_heavier)
 	SignalBus.lighter.connect(_lighter)
 
+#moves the block to the selected position
 func _move_block(color_name, block_position) -> void:
 	if color_name == BlockName:
-		position =  block_position
-		
+		position = block_position
+
+#if on the heavier side, moves down
 func _heavier(color_name) -> void:
 	if color_name == BlockName:
 		position += Vector2(0, 100)
 		
+#if on the lighter side, moves up
 func _lighter(color_name) -> void:
 	if color_name == BlockName:
 		position -= Vector2(0, 100)

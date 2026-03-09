@@ -5,7 +5,7 @@
 [node name="Node3D" type="Node2D"]
 script = ExtResource("1_x71or")
 
-[node name="Button" type="Button" parent="."]
+[node name="Weigh" type="Button" parent="."]
 offset_left = 954.0
 offset_top = 561.0
 offset_right = 1104.0
@@ -13,7 +13,7 @@ offset_bottom = 620.0
 theme_override_font_sizes/font_size = 30
 text = "Weigh"
 
-[node name="Button2" type="Button" parent="."]
+[node name="SwitchSide" type="Button" parent="."]
 offset_left = 890.0
 offset_top = 485.0
 offset_right = 1103.0
@@ -21,18 +21,26 @@ offset_bottom = 544.0
 theme_override_font_sizes/font_size = 30
 text = "Switch Sides"
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(320, 350)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, 128, 0, 88, 24, 64, 48, 88, 48, 128)
-
-[node name="Button3" type="Button" parent="."]
+[node name="Reset Scale" type="Button" parent="."]
 offset_left = 16.0
 offset_top = 560.0
-offset_right = 120.0
+offset_right = 208.0
 offset_bottom = 624.0
 theme_override_font_sizes/font_size = 30
-text = "Reset"
+text = "Reset Scale"
+
+[node name="Show Answer" type="Button" parent="."]
+offset_left = 912.0
+offset_top = 16.0
+offset_right = 1136.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 30
+text = "Show Answer"
+
+[node name="Pointer" type="Polygon2D" parent="."]
+position = Vector2(300, 350)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 128, 0, 88, 24, 64, 48, 88, 48, 128)
 
 [node name="Equal" type="Label" parent="."]
 visible = false
@@ -46,85 +54,87 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Answer" type="Label" parent="."]
-offset_left = 936.0
-offset_top = 8.0
-offset_right = 1128.0
-offset_bottom = 320.0
+visible = false
+offset_left = 984.0
+offset_top = 88.0
+offset_right = 1120.0
+offset_bottom = 400.0
 theme_override_font_sizes/font_size = 20
 
 [node name="1" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 24.0
-offset_right = 982.0
-offset_bottom = 52.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 85.0
+offset_bottom = 44.0
 theme_override_font_sizes/font_size = 20
 text = "None 1"
 
 [node name="2" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 56.0
-offset_right = 1016.0
-offset_bottom = 84.0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 76.0
 theme_override_font_sizes/font_size = 20
 text = "None 2"
 
 [node name="3" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 88.0
-offset_right = 1008.0
-offset_bottom = 116.0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 96.0
+offset_bottom = 108.0
 theme_override_font_sizes/font_size = 20
 text = "None 3"
 
 [node name="4" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 120.0
-offset_right = 1004.0
-offset_bottom = 148.0
+offset_left = 16.0
+offset_top = 112.0
+offset_right = 92.0
+offset_bottom = 140.0
 theme_override_font_sizes/font_size = 20
 text = "None 4"
 
 [node name="5" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 152.0
-offset_right = 988.0
-offset_bottom = 180.0
+offset_left = 16.0
+offset_top = 144.0
+offset_right = 85.0
+offset_bottom = 172.0
 theme_override_font_sizes/font_size = 20
 text = "None 5"
 
 [node name="6" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 184.0
-offset_right = 1005.0
-offset_bottom = 212.0
+offset_left = 16.0
+offset_top = 176.0
+offset_right = 93.0
+offset_bottom = 204.0
 theme_override_font_sizes/font_size = 20
 text = "None 6"
 
 [node name="7" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 216.0
-offset_right = 1000.0
-offset_bottom = 244.0
+offset_left = 16.0
+offset_top = 208.0
+offset_right = 88.0
+offset_bottom = 236.0
 theme_override_font_sizes/font_size = 20
 text = "None 7"
 
 [node name="8" type="Label" parent="."]
 visible = false
-offset_left = 928.0
-offset_top = 248.0
-offset_right = 982.0
-offset_bottom = 276.0
+offset_left = 16.0
+offset_top = 240.0
+offset_right = 85.0
+offset_bottom = 268.0
 theme_override_font_sizes/font_size = 20
 text = "None 8
 "
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Weigh" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="SwitchSide" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Reset Scale" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Show Answer" to="." method="_on_show_answer_pressed"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dd34f71nifah7"]
 
-[ext_resource type="Script" path="res://Diamonds.gd" id="1_qh2tg"]
+[ext_resource type="Script" path="res://Diamonds.gd" id="1_x71or"]
 
 [node name="Node3D" type="Node2D"]
-script = ExtResource("1_qh2tg")
+script = ExtResource("1_x71or")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 954.0
